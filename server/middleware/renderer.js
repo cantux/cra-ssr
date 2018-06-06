@@ -7,7 +7,10 @@ import Loadable from 'react-loadable';
 import App from '../../src/App';
 const path = require("path");
 const fs = require("fs");
-import manifest from '../../build/asset-manifest.json';
+
+import { getBundles } from 'react-loadable/webpack'
+import stats from '../../build/react-loadable.json';
+
 export default (req, res, next) => {
     // point to the html file created by CRA's build tool
     const filePath = path.resolve(__dirname, '..', '..', 'build', 'index.html');
@@ -24,10 +27,13 @@ export default (req, res, next) => {
                 <App/>
             </Loadable.Capture>
         );
+
+        let bundles = getBundles(stats, modules);
+
         console.log(modules);
 
 
-        console.log(manifest);
+        console.log(bundles);
         // const selectAssets = (modules, ) => Object.keys(assets)
         //     .filter(asset => chunks.indexOf(asset.replace('selective', '')) > -1)
         //     .map(k => assets[k]);
