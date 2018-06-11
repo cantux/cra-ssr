@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { AsyncComponent } from  './components/SomeAsyncComponent';
-import MultipleComponent from "./components/MultipleComponent";
 import { ClientSidePreloadingComponent } from "./components/clientSidePreloading/ClientSidePreloadingComponent";
-import { AsyncComponent as SSPComponent } from './components/ServerSideSelectivePreloading/SSSP';
+import { AsyncComponent as LateLoad } from './components/LateLoad/SSSP';
+
+import { AsyncLibraryUserComponent } from './components/LibraryUser/AsyncLibraryUser';
 
 class App extends Component {
     state = { clicked: false };
@@ -14,7 +15,7 @@ class App extends Component {
         this.setState((prevState) => ({clicked: !prevState.clicked}))
     }
   render() {
-    let some = this.state.clicked ? <div>ALOALO</div> : <div>NAAAH</div>;
+    let some = this.state.clicked ? <div>ALOALO</div> : <LateLoad/>;
     return (
       <div className="App">
         <header className="App-header">
@@ -26,13 +27,6 @@ class App extends Component {
 
             <br/>
 
-            <MultipleComponent>
-                // someComponentProperty={"Multiple component example"}
-                // anotherComponentProperty={"Multiple component example"}>
-            </MultipleComponent>
-
-            <br/>
-
             <ClientSidePreloadingComponent/>
 
             <br/>
@@ -41,7 +35,8 @@ class App extends Component {
                 Click me
             </button>
             { some }
-            <SSPComponent/>
+
+            <AsyncLibraryUserComponent libraryUserComponentProperty={"Prop from App to LibraryUser"}/>
         </p>
       </div>
     );

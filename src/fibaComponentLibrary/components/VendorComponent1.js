@@ -3,7 +3,7 @@ import React from 'react';
 import { VendorComponent2 } from './VendorComponent2';
 import VendorComponent3 from './VendorComponent3';
 
-export default (props) => (
+export const VendorComponent1 = (props) => (
     <div>
         <p>VENDOR COMPONENT 1 with prop: {props.vendorComponent1Property}</p>
         <ul>

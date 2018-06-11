@@ -34,27 +34,19 @@ export default (req, res, next) => {
 
 
         console.log(bundles);
-        // const selectAssets = (modules, ) => Object.keys(assets)
-        //     .filter(asset => chunks.indexOf(asset.replace('selective', '')) > -1)
-        //     .map(k => assets[k]);
-
-        // then, after Loadable.Capture
-        // console.log(selectAssets(manifest, modules));
-
-        // const extraChunks = extractAssets(manifest, modules)
-        //     ;
-
-        // inject the rendered app into our html and send it
-        return res.send(
-            htmlData
-                .replace(
-                    '<div id="root"></div>',
-                    `<div id="root">${html}</div>`
-                )
-                // .replace(
-                //     '</body>',
-                //     extraChunks.join('') + '</body>'
-                // )
-        );
-    });
+        res.send(`
+          <!doctype html>
+          <html lang="en">
+            <head>...</head>
+            <body>
+              <div id="app">${html}</div>
+              <script src="/dist/manifest.js"></script>
+              ${bundles.map(bundle => {
+                    return `<script src="/dist/${bundle.file}"></script>`
+                }).join('\n')}
+              <script src="/dist/main.js"></script>
+            </body>
+          </html>
+        `);
+        });
 }
