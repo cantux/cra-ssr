@@ -8,36 +8,49 @@ import { AsyncComponent as LateLoad } from './components/LateLoad/SSSP';
 
 import { AsyncLibraryUserComponent } from './components/LibraryUser/AsyncLibraryUser';
 
+import ClientSideRedux from './components/Redux/ClientSideRedux';
+import PreloadedRedux from './components/Redux/PreloadedRedux';
+
 class App extends Component {
     state = { clicked: false };
     onButtonClicked = (e) => {
-        console.log("got e", e);
         this.setState((prevState) => ({clicked: !prevState.clicked}))
     }
   render() {
-    let some = this.state.clicked ? <div>ALOALO</div> : <LateLoad/>;
+
+    let toBeRetrieved = this.state.clicked ? <LateLoad/> : <div>We will not go back to server if you click to button below</div>;
+    let preloaded = this.state.clicked ? <div>We already got to this point in the first render so Loadable preloaded this</div> : <LateLoad/>;
+
     return (
       <div className="App">
         <header className="App-header">
           <img src="./logo.svg" className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
+        <div className="App-intro">
             <AsyncComponent someComponentProperty={"Hi I am asink"}/>
 
-            <br/>
+            <hr/>
 
             <ClientSidePreloadingComponent/>
 
-            <br/>
+            <hr/>
 
+            {/*{ toBeRetrieved }*/}
+            { preloaded }
             <button onClick={this.onButtonClicked}>
-                Click me
+                Click to show already loaded component
             </button>
-            { some }
+
+            <hr/>
 
             <AsyncLibraryUserComponent libraryUserComponentProperty={"Prop from App to LibraryUser"}/>
-        </p>
+
+            <hr/>
+
+            <PreloadedRedux/>
+            <ClientSideRedux/>
+        </div>
       </div>
     );
   }

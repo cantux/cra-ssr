@@ -8,15 +8,24 @@ const PORT = 3000;
 const path = require('path');
 
 const app = express();
-const router = express.Router();
 
-router.use('^/$', serverRenderer);
+
+import configureStore from '../src/store/configureStore';
+import { setPreloadedMessage } from '../src/store/actions';
+const actionIndex = (req, res, next) => {
+    const store = configureStore();
+    store.dispatch(setPreloadedMessage("Hi, I'm from server!"));
+    serverRenderer(store)(req, res, next)
+};
+
+const router = express.Router();
+router.use('^/$', actionIndex);
 
 router.use(express.static(
     path.resolve(__dirname, '..', 'build'),
     { maxAge: '30d' },
 ));
-router.use('*', serverRenderer);
+
 app.use(router);
 
 Loadable.preloadAll().then(() => {
