@@ -32,7 +32,6 @@ export default (store) => (req, res, next) => {
             </Loadable.Capture>
         );
 
-        console.log(modules);
         let bundles = getBundles(stats, modules);
 
         let styles = bundles.filter(bundle => bundle.file.endsWith('.css'));
@@ -42,11 +41,9 @@ export default (store) => (req, res, next) => {
                 return `<script src="/${script.file}"></script>`
             }).join('\n')
 
-        console.log(scriptsText);
         let stylesText = styles.map(style => {
                     return `<link href="/${style.file}" rel="stylesheet"/>`
             }).join('\n');
-        console.log(stylesText);
 
         const reduxState = JSON.stringify(store.getState());
 
@@ -60,10 +57,11 @@ export default (store) => (req, res, next) => {
                 `<div id="root">${html}</div>`
             )
             .replace(
-                '</body>',
-                `<script type="text/javascript" charSet="utf-8">
-                    window.REDUX_STATE = ${reduxState};
-                </script>` + '</body>'
+                '<body>',
+                `<body>
+                    <script type="text/javascript" charSet="utf-8">
+                    __REDUX_STATE__ = ${reduxState};
+                </script>`
             )
             .replace(
                 '</body>',

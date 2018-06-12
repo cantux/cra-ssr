@@ -9,8 +9,8 @@ import Loadable from 'react-loadable';
 import { Provider as ReduxProvider } from 'react-redux'
 import configureStore from './store/configureStore';
 
-console.log(window.REDUX_STATE);
-const store = configureStore(window.REDUX_STATE || {});
+console.log(window.__REDUX_STATE__);
+const store = configureStore(window.__REDUX_STATE__ || {});
 
 window.onload = () => {
     Loadable.preloadReady().then(() => {
