@@ -9,13 +9,21 @@ const path = require('path');
 
 const app = express();
 
+const apiRouter = require('./api/messageController');
 
 import configureStore from '../src/store/configureStore';
-import { setPreloadedMessage } from '../src/store/actions';
+import { setPreloadedMessage, setAsyncMessage } from '../src/store/actions';
+import {getMessage} from "../src/services/Message";
 const actionIndex = (req, res, next) => {
     const store = configureStore();
     store.dispatch(setPreloadedMessage("Hi, I'm from server!"));
-    serverRenderer(store)(req, res, next)
+    getMessage().then((body) =>
+    {
+        store.dispatch(setAsyncMessage(body.message))
+        serverRenderer(store)(req, res, next)
+    }).catch(e => {
+        res.status(400).send(e)
+    });
 };
 
 const router = express.Router();
@@ -25,6 +33,8 @@ router.use(express.static(
     path.resolve(__dirname, '..', 'build'),
     { maxAge: '30d' },
 ));
+
+router.use('/api', apiRouter);
 
 app.use(router);
 

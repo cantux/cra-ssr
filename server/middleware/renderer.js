@@ -34,6 +34,7 @@ export default (store) => (req, res, next) => {
 
         let bundles = getBundles(stats, modules);
 
+        console.log(modules);
         let styles = bundles.filter(bundle => bundle.file.endsWith('.css'));
         let scripts = bundles.filter(bundle => bundle.file.endsWith('.js'));
 

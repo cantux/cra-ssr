@@ -10,6 +10,7 @@ import { AsyncLibraryUserComponent } from './components/LibraryUser/AsyncLibrary
 
 import ClientSideRedux from './components/Redux/ClientSideRedux';
 import PreloadedRedux from './components/Redux/PreloadedRedux';
+import IsomorphicFetch from './components/Redux/IsomorphicFetch';
 
 class App extends Component {
     state = { clicked: false };
@@ -50,6 +51,7 @@ class App extends Component {
 
             <PreloadedRedux/>
             <ClientSideRedux/>
+            <IsomorphicFetch/>
         </div>
       </div>
     );

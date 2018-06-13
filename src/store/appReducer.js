@@ -1,7 +1,7 @@
 const initialState = {
     preloadedMessage: null,
     clientMessage: null,
-    wrongPreloadedMessage: null
+    asyncMessage: null
 };
 
 export const appReducer = (state = initialState, action) => {
@@ -16,10 +16,10 @@ export const appReducer = (state = initialState, action) => {
                 ...state,
                 clientMessage: action.clientMessage,
             };
-        case 'SET_WRONG_PRELOADED_MESSAGE':
+        case 'SET_ASYNC_MESSAGE':
             return {
                 ...state,
-                wrongPreloadedMessage: action.wrongPreloadedMessage,
+                asyncMessage: action.asyncMessage,
             };
 
         default:
