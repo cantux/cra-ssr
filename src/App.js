@@ -38,14 +38,17 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <div className="App-intro">
+
+            1)
             <AsyncComponent someComponentProperty={"Hi I am asink"}/>
 
             <hr/>
 
+            2)
             <ClientSidePreloadingComponent/>
 
             <hr/>
-
+            3)
             { toBeRetrieved }
             <button onClick={this.onRetrieveButtonClicked}>
                 Click to dynamically import component
@@ -57,13 +60,15 @@ class App extends Component {
             </button>
 
             <hr/>
-
+            4)
             <AsyncLibraryUserComponent libraryUserComponentProperty={"Prop from App to LibraryUser"}/>
 
             <hr/>
-
+            5)
             <PreloadedRedux/>
             <ClientSideRedux/>
+            <hr/>
+            6)
             <IsomorphicFetch/>
         </div>
       </div>
