@@ -12,7 +12,7 @@ export class ClientSidePreloadingComponent extends React.Component {
     onMouseOver = () => {
         // MAGIC HAPPENS HERE
         // preload function intentionally does not return a Promise.
-        // It's just a performance optimization not something UI logic should depend on.
+        // It's said to be just a performance optimization not something UI logic should depend on.
         LoadableMyComponent.preload();
     };
 
